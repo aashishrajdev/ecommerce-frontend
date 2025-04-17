@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fetch product data
   fetchProductData(productId);
   setupEventListeners();
+
+  // Load cart data
+  CartManager.init();
 });
 
 // Fetch product data from API
@@ -266,6 +269,102 @@ function updatePrice() {
   setTimeout(() => priceElement.classList.remove("price-update"), 500);
 }
 
+// Add to cart functionality
+function handleAddToCart() {
+  const selectedColor = document.querySelector(".color-option.selected");
+  const selectedSize = document.querySelector(".size-option.selected");
+  const quantity = parseInt(document.getElementById("quantity").value);
+  const productId = new URLSearchParams(window.location.search).get("id");
+  const productTitle = document.querySelector(".product-title").textContent;
+  const productPrice = parseFloat(
+    document.querySelector(".product-price").textContent.replace("$", "")
+  );
+  const productImage = document.querySelector(".main-image img").src;
+
+  // Validate selections
+  if (!selectedColor || !selectedSize) {
+    showError("Please select both color and size before adding to cart.");
+    return;
+  }
+
+  // Prepare product data
+  const product = {
+    id: productId,
+    name: productTitle,
+    price: productPrice,
+    image: productImage,
+    color: selectedColor.textContent,
+    size: selectedSize.textContent,
+    quantity: quantity,
+  };
+
+  // Add to cart
+  if (CartManager.addItem(product)) {
+    showSuccessMessage();
+    animateAddToCart();
+  } else {
+    showError("Failed to add item to cart. Please try again.");
+  }
+}
+
+// Show success message
+function showSuccessMessage() {
+  const message = document.createElement("div");
+  message.className = "success-message";
+  message.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>Item added to cart successfully!</span>
+    `;
+  document.body.appendChild(message);
+
+  // Show message
+  setTimeout(() => message.classList.add("show"), 100);
+
+  // Remove message after 3 seconds
+  setTimeout(() => {
+    message.classList.remove("show");
+    setTimeout(() => message.remove(), 300);
+  }, 3000);
+}
+
+// Show error message
+function showError(message) {
+  const error = document.createElement("div");
+  error.className = "error-message";
+  error.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <span>${message}</span>
+    `;
+  document.body.appendChild(error);
+
+  // Show error
+  setTimeout(() => error.classList.add("show"), 100);
+
+  // Remove error after 3 seconds
+  setTimeout(() => {
+    error.classList.remove("show");
+    setTimeout(() => error.remove(), 300);
+  }, 3000);
+}
+
+// Animate add to cart
+function animateAddToCart() {
+  const addToCartBtn = document.querySelector(".add-to-cart-btn");
+  const cartIcon = document.querySelector(".cart-link i");
+
+  // Add ripple effect
+  const ripple = document.createElement("span");
+  ripple.className = "ripple";
+  addToCartBtn.appendChild(ripple);
+
+  // Remove ripple after animation
+  setTimeout(() => ripple.remove(), 600);
+
+  // Animate cart icon
+  cartIcon.classList.add("animate");
+  setTimeout(() => cartIcon.classList.remove("animate"), 1000);
+}
+
 // Setup event listeners
 function setupEventListeners() {
   // Tab switching
@@ -307,28 +406,17 @@ function setupEventListeners() {
     quantityInput.value = value + 1;
   });
 
-  // Add to cart
+  // Add to cart button
   const addToCartBtn = document.querySelector(".add-to-cart-btn");
-  addToCartBtn.addEventListener("click", () => {
-    const selectedColor = document.querySelector(".color-option.selected");
-    const selectedSize = document.querySelector(".size-option.selected");
-    const quantity = parseInt(quantityInput.value);
+  addToCartBtn.addEventListener("click", handleAddToCart);
 
-    if (!selectedColor || !selectedSize) {
-      alert("Please select both color and size before adding to cart.");
-      return;
+  // Quantity input validation
+  quantityInput.addEventListener("change", () => {
+    let value = parseInt(quantityInput.value);
+    if (isNaN(value) || value < 1) {
+      quantityInput.value = 1;
     }
-
-    // In a real application, this would add the item to the cart
-    console.log("Adding to cart:", {
-      productId: new URLSearchParams(window.location.search).get("id"),
-      color: selectedColor.textContent,
-      size: selectedSize.textContent,
-      quantity: quantity,
-    });
-
-    // Show success message
-    alert("Item added to cart successfully!");
+    updatePrice();
   });
 
   // Wishlist button
