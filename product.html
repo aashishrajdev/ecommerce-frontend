@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - E-Commerce</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <a href="/">
+            <img src="assets/logo.svg" alt="E-Commerce Logo" class="logo-img" />
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/products" class="nav-link">Products</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Search and Cart -->
+        <div class="header-right">
+          <div class="search-container">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search products..."
+            />
+            <button class="search-button" aria-label="Search">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="cart-container">
+            <a href="/cart" class="cart-link">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+          </div>
+          <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+      <div class="container">
+        <div class="product-detail">
+          <!-- Product Images -->
+          <div class="product-images">
+            <div class="main-image">
+              <img id="mainProductImage" src="" alt="" />
+            </div>
+            <div class="thumbnail-images" id="thumbnailImages">
+              <!-- Thumbnails will be added dynamically -->
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <nav class="breadcrumb">
+              <a href="/">Home</a>
+              <span class="separator">/</span>
+              <a href="/products">Products</a>
+              <span class="separator">/</span>
+              <span id="productCategory"></span>
+            </nav>
+
+            <h1 id="productTitle" class="product-title"></h1>
+
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="rating-stars" id="productRating"></span>
+                <span class="rating-count" id="ratingCount"></span>
+              </div>
+              <span class="product-sku"
+                >SKU: <span id="productSku"></span
+              ></span>
+            </div>
+
+            <div class="product-price" id="productPrice"></div>
+
+            <div class="product-description" id="productDescription"></div>
+
+            <!-- Product Variations -->
+            <div class="product-variations">
+              <div class="variation size-variation">
+                <label>Size</label>
+                <div class="size-options" id="sizeOptions">
+                  <!-- Size options will be added dynamically -->
+                </div>
+              </div>
+              <div class="variation color-variation">
+                <label>Color</label>
+                <div class="color-options" id="colorOptions">
+                  <!-- Color options will be added dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <div class="add-to-cart-container">
+              <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" value="1" min="1" id="quantity" />
+                <button class="quantity-btn plus">+</button>
+              </div>
+              <button class="add-to-cart-btn" id="addToCartBtn">
+                Add to Cart
+              </button>
+            </div>
+
+            <!-- Product Actions -->
+            <div class="product-actions">
+              <button class="wishlist-btn">
+                <i class="far fa-heart"></i> Add to Wishlist
+              </button>
+              <button class="share-btn">
+                <i class="fas fa-share-alt"></i> Share
+              </button>
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details-tabs">
+              <div class="tabs">
+                <button class="tab-btn active" data-tab="description">
+                  Description
+                </button>
+                <button class="tab-btn" data-tab="specifications">
+                  Specifications
+                </button>
+                <button class="tab-btn" data-tab="reviews">Reviews</button>
+              </div>
+              <div class="tab-content">
+                <div class="tab-pane active" id="descriptionTab">
+                  <div id="detailedDescription"></div>
+                </div>
+                <div class="tab-pane" id="specificationsTab">
+                  <table class="specifications-table">
+                    <tbody id="specificationsTable">
+                      <!-- Specifications will be added dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="reviewsTab">
+                  <div class="reviews-container" id="reviewsContainer">
+                    <!-- Reviews will be added dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="scripts/product.js"></script>
+  </body>
+</html>
