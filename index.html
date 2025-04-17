@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Commerce Frontend</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <a href="/">
+            <img src="assets/logo.svg" alt="E-Commerce Logo" class="logo-img" />
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li><a href="/" class="nav-link active">Home</a></li>
+            <li><a href="/products" class="nav-link">Products</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Search and Cart -->
+        <div class="header-right">
+          <div class="search-container">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search products..."
+            />
+            <button class="search-button" aria-label="Search">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="cart-container">
+            <a href="/cart" class="cart-link">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+          </div>
+          <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Summer Collection 2024</h1>
+        <p class="hero-subtitle">
+          Discover the latest trends in fashion with our exclusive summer
+          collection
+        </p>
+        <div class="hero-cta">
+          <a href="/products" class="cta-button primary">Shop Now</a>
+          <a href="/new-arrivals" class="cta-button secondary"
+            >View New Arrivals</a
+          >
+        </div>
+      </div>
+      <div class="hero-overlay"></div>
+    </section>
+
+    <!-- Product Grid Section -->
+    <section class="products-section">
+      <div class="container">
+        <div class="products-header">
+          <h2 class="section-title">Featured Products</h2>
+          <div class="products-controls">
+            <div class="filter-container">
+              <label for="categoryFilter" class="visually-hidden"
+                >Filter by Category</label
+              >
+              <select
+                id="categoryFilter"
+                class="filter-select"
+                aria-label="Filter products by category"
+              >
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="jewelery">Jewelery</option>
+                <option value="men's clothing">Men's Clothing</option>
+                <option value="women's clothing">Women's Clothing</option>
+              </select>
+            </div>
+            <div class="sort-container">
+              <label for="sortSelect" class="visually-hidden"
+                >Sort Products</label
+              >
+              <select
+                id="sortSelect"
+                class="sort-select"
+                aria-label="Sort products"
+              >
+                <option value="default">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+          <!-- Loading State -->
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading products...</p>
+          </div>
+        </div>
+
+        <!-- Quick View Modal -->
+        <div id="quickViewModal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-product">
+              <div class="modal-product-image">
+                <img src="" alt="" id="modalProductImage" />
+              </div>
+              <div class="modal-product-details">
+                <h3 id="modalProductTitle"></h3>
+                <p class="modal-product-price" id="modalProductPrice"></p>
+                <p
+                  class="modal-product-description"
+                  id="modalProductDescription"
+                ></p>
+                <div class="modal-product-actions">
+                  <button class="add-to-cart" id="modalAddToCart">
+                    Add to Cart
+                  </button>
+                  <a href="#" class="view-details" id="modalViewDetails"
+                    >View Details</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
